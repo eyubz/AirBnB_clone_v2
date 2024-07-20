@@ -8,6 +8,7 @@ from invoke import Context
 
 @task
 def do_pack(ctx):
+    """ Creating archive file """
     dt = datetime.utcnow()
     file = "versions/web_static_{}{}{}{}{}{}.tgz".format(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
     if not os.path.isdir("versions"):
