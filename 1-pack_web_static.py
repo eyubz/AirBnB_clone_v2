@@ -2,18 +2,16 @@
 """ Generating archive for web static """
 import os.path
 from datetime import datetime
-from fabric import task
-from invoke import Context
+from fabric.api import local
 
 
-@task
-def do_pack(ctx):
+def do_pack():
     """ Creating archive file """
     dt = datetime.utcnow()
     file = "versions/web_static_{}{}{}{}{}{}.tgz".format(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
     if not os.path.isdir("versions"):
-        if ctx.run("mkdir -p versions", pty=True).failed:
+        if local("mkdir -p versions").failed:
             return None
-    if ctx.run("tar -cvzf {} web_static".format(file), pty=True).failed:
+    if local("tar -cvzf {} web_static".format(file)).failed:
         return None
     return file
