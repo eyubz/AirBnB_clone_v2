@@ -58,7 +58,8 @@ def do_deploy(archive_path):
 
 def deploy():
     """ Archiving and deploying """
-    file = do_pack()
-    if not file:
+    path = do_pack()
+    if not os.path.exists(path):
         return False
-    return do_deploy(file)
+    result = do_deploy(path)
+    return result
